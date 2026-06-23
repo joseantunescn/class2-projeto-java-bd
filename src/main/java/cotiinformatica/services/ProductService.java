@@ -1,6 +1,7 @@
 package cotiinformatica.services;
 
 import cotiinformatica.entities.ProductEntity;
+import cotiinformatica.repositories.ProductRepository;
 
 import java.util.Scanner;
 
@@ -13,8 +14,6 @@ public class ProductService {
 
         var scanner = new Scanner(System.in);
 
-        System.out.print("ID: ");
-        product.id = Integer.parseInt(scanner.nextLine());
         System.out.print("NOME: ");
         product.nome = scanner.nextLine();
         System.out.println("PRECO: ");
@@ -24,5 +23,17 @@ public class ProductService {
 
         product.printData();
 
+        System.out.print("Deseja salvar este produto? (S/N): ");
+        var option = scanner.nextLine();
+        if(option.equalsIgnoreCase("S")) {
+
+            var productRepository = new ProductRepository();
+            productRepository.insertObject(product);
+
+
+        }
+        else {
+            System.out.println("\nProduct not saved.\n");
+        }
     }
 }
